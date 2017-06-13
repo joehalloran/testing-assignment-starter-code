@@ -150,16 +150,17 @@ public class SolutionIT {
     @Test
     public void notLoggedIn_checkMenus() {
         assertElementPresent(logInMenuId);
-        assertElementNotPresent(logOutMenuId);
-        // TODO: complete for all other menus
-        assertUrlEquals("http://whipbird.mattcalthrop.com/#!/login");
+        assertElementTextEquals(By.id(logInMenuId), "log in");
+        assertElementPresent(aboutMenuId);
         assertElementTextEquals(By.id(aboutMenuId), "about");
+        assertElementNotPresent(logOutMenuId);
+        assertElementNotPresent(myWhipbirdsMenuId);
     }
 
     // Step 2
     @Test
     public void notLoggedIn_checkCurrentPage() {
-        // TODO
+
     }
 
     // Step 3
