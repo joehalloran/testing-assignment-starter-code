@@ -16,7 +16,7 @@ public class SolutionIT {
     private static WebDriver driver;
     private static WebDriverWait wait;
     private static String startUrl;
-    private static String myWhipbirdsMenuId = "add-new-whipbird-button";
+    private static String myWhipbirdsMenuId = "my-whipbirds-menu";
     private static String aboutMenuId = "about-menu";
     private static String logOutMenuId = "log-out-menu";
     private static String logInMenuId = "log-in-menu";
@@ -198,7 +198,13 @@ public class SolutionIT {
     @Test
     public void loggedIn_checkMenus() {
         logIn(true);
-        
+        assertElementPresent(logOutMenuId);
+        assertElementTextEquals(By.id(logOutMenuId), "log out");
+        assertElementPresent(aboutMenuId);
+        assertElementTextEquals(By.id(aboutMenuId), "about");
+        assertElementPresent(myWhipbirdsMenuId);
+        assertElementTextEquals(By.id(myWhipbirdsMenuId), "my whipbirds");
+        assertElementNotPresent(logInMenuId);
 
     }
 
