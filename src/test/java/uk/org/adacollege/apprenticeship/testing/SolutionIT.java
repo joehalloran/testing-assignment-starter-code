@@ -109,12 +109,12 @@ public class SolutionIT {
     }
 
     private static void assertElementTextEquals(By selector, String expectedText) {
-        // TODO: implement this method
-        // - use assertTitleEquals() as an example pattern to follow
-        // - but instead of return driver.getTitle().equals(expectedTitle)
-        //   call driver.findElement() with the selector provided
-        //   and then get the text from that element
-        //   and then check that it equals the expected text
+        Boolean result = wait.until(new ExpectedCondition<Boolean>() {
+            public Boolean apply(WebDriver driver) {
+                return driver.findElement(selector).getText().equals(expectedText);
+            }
+        });
+        assertTrue(result);
     }
 
     // ========= SCAFFOLDING =========
@@ -153,6 +153,7 @@ public class SolutionIT {
         assertElementNotPresent(logOutMenuId);
         // TODO: complete for all other menus
         assertUrlEquals("http://whipbird.mattcalthrop.com/#!/login");
+        assertElementTextEquals(By.id(aboutMenuId), "about");
     }
 
     // Step 2
