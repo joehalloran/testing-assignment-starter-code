@@ -169,7 +169,11 @@ public class SolutionIT {
     // Step 3
     @Test
     public void notLoggedIn_clickAboutMenu() {
-        // TODO
+        WebElement aboutMenuItem = driver.findElement(By.id(aboutMenuId));
+        aboutMenuItem.click();
+        assertUrlEquals("http://whipbird.mattcalthrop.com/#!/about");
+        assertTitleEquals("whipbird: about");
+        assertElementTextEquals(By.tagName("h4"), "About this app");
     }
 
     // Step 4
