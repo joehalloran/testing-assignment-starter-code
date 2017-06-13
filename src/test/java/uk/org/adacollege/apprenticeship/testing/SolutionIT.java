@@ -179,7 +179,17 @@ public class SolutionIT {
     // Step 4
     @Test
     public void notLoggedIn_logInWithIncorrectCredentials() {
-        // TODO
+        logIn(false);
+        assertElementPresent(logInMenuId);
+        assertElementTextEquals(By.id(logInMenuId), "log in");
+        assertElementPresent(aboutMenuId);
+        assertElementTextEquals(By.id(aboutMenuId), "about");
+        assertElementNotPresent(logOutMenuId);
+        assertElementNotPresent(myWhipbirdsMenuId);
+        assertUrlEquals("http://whipbird.mattcalthrop.com/#!/login");
+        assertTitleEquals("whipbird: log in");
+        assertElementTextEquals(By.tagName("h4"), "Log in");
+        assertElementTextEquals(By.id("popup-message"), "Username or password incorrect");
     }
 
     // --------- WHEN LOGGED IN ---------
@@ -188,7 +198,8 @@ public class SolutionIT {
     @Test
     public void loggedIn_checkMenus() {
         logIn(true);
-        // TODO
+        
+
     }
 
     // Step 6
