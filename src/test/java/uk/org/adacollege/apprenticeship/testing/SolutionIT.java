@@ -220,7 +220,12 @@ public class SolutionIT {
     // Step 7
     @Test
     public void loggedIn_clickLogOutMenu() {
-        // TODO
+        logIn(true);
+        WebElement logOutMenuItem = driver.findElement(By.id(logOutMenuId));
+        logOutMenuItem.click();
+        assertUrlEquals("http://whipbird.mattcalthrop.com/#!/logout");
+        assertTitleEquals("whipbird: log out");
+        assertElementTextEquals(By.tagName("h4"), "Log out");
     }
 
     // Step 8
