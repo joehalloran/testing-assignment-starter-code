@@ -231,7 +231,18 @@ public class SolutionIT {
     // Step 8
     @Test
     public void loggedIn_addNewWhipbird() {
+        String whipBirdName = "Barnaby Beanland";
+        String whipBirdAge = "6";
+        logIn(true);
+        WebElement newWhipForm = driver.findElement(By.tagName("form"));
+        WebElement newWhipBirdName = driver.findElement(By.name("name"));
+        WebElement newWhipBirdAge = driver.findElement(By.name("age"));
+        newWhipBirdName.sendKeys(whipBirdName);
+        newWhipBirdAge.sendKeys(whipBirdAge);
+        newWhipForm.submit();
+        assertElementTextEquals(By.id("popup-message"),"Whipbird added: "+ whipBirdName);
         // TODO
+        assertElementTextEquals(By.className("whipbird"), whipBirdName + ", " + whipBirdAge + " years old");
     }
 
     // Step 9
