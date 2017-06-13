@@ -205,13 +205,16 @@ public class SolutionIT {
         assertElementPresent(myWhipbirdsMenuId);
         assertElementTextEquals(By.id(myWhipbirdsMenuId), "my whipbirds");
         assertElementNotPresent(logInMenuId);
-
     }
 
     // Step 6
     @Test
     public void loggedIn_checkCurrentPage() {
-        // TODO
+        logIn(true);
+        assertUrlEquals("http://whipbird.mattcalthrop.com/#!/my-whipbirds");
+        assertTitleEquals("whipbird: my whipbirds");
+        assertElementTextEquals(By.tagName("h4"), "Current whipbirds for Joe Halloran");
+        assertElementTextEquals(By.id("footer-right"), "Joe Halloran");
     }
 
     // Step 7
