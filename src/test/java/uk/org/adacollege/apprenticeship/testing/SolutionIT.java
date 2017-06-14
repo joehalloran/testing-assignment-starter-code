@@ -30,6 +30,8 @@ public class SolutionIT {
     private static String logInButtonId = "login-button";
     private static String logOutButtonId = "log-out-button";
     private static String popupMessageId = "popup-message";
+    private static String whipBirdName = "Barnaby Beanland" + UUID.randomUUID().toString();
+    private static String whipBirdAge = "6";
 
     // ========= UTILITY METHODS =========
 
@@ -116,6 +118,15 @@ public class SolutionIT {
             }
         });
         assertTrue(result);
+    }
+
+    private static void createNewUniqueWhipBird() {
+        WebElement newWhipForm = driver.findElement(By.tagName("form"));
+        WebElement newWhipBirdName = driver.findElement(By.name("name"));
+        WebElement newWhipBirdAge = driver.findElement(By.name("age"));
+        newWhipBirdName.sendKeys(whipBirdName);
+        newWhipBirdAge.sendKeys(whipBirdAge);
+        newWhipForm.submit();
     }
 
     // ========= SCAFFOLDING =========
@@ -229,23 +240,12 @@ public class SolutionIT {
         assertElementTextEquals(By.tagName("h4"), "Log out");
     }
 
-    // Step 8
+    // Step 8void
     @Test
     public void loggedIn_addNewWhipbird() {
-        // Use randomUUID to generate unique / highly improbable name
-        String whipBirdName = "Barnaby Beanland" + UUID.randomUUID().toString();
-        String whipBirdAge = "6";
         logIn(true);
-        // Fill in new whipbird form
-        WebElement newWhipForm = driver.findElement(By.tagName("form"));
-        WebElement newWhipBirdName = driver.findElement(By.name("name"));
-        WebElement newWhipBirdAge = driver.findElement(By.name("age"));
-        newWhipBirdName.sendKeys(whipBirdName);
-        newWhipBirdAge.sendKeys(whipBirdAge);
-        newWhipForm.submit();
-        // Check pop up
-        assertElementTextEquals(By.id("popup-message"),"Whipbird added: "+ whipBirdName);
-        // Check new whipbird in whipbirds list
+        createNewUniqueWhipBird();
+        assertElementTextEquals(By.id(popupMessageId),"Whipbird added: "+ whipBirdName);
         String whipBirdsDiv = driver.findElement(By.id("whipbirds-list")).getText();
         assertTrue(whipBirdsDiv.contains(whipBirdName + ", " + whipBirdAge + " years old"));
     }
