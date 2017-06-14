@@ -140,6 +140,12 @@ public class SolutionIT {
         driver.findElement(By.id("delete-whipbird-button-0")).click();
     }
 
+    private static void deleteAllWhipBird() {
+        while (driver.findElements(By.id("no-whipbirds-saved")).size() < 1) {
+            deleteFirstWhipBird();
+        }
+    }
+
     // ========= SCAFFOLDING =========
 
     @BeforeClass
@@ -257,6 +263,7 @@ public class SolutionIT {
     @Test
     public void loggedIn_addNewWhipbird() {
         logIn(true);
+        deleteAllWhipBird();
         createNewUniqueWhipBird();
         assertElementTextEquals(By.id(popupMessageId),"Whipbird added: "+ whipBirdName);
         String whipBirdsDiv = driver.findElement(By.id("whipbirds-list")).getText();
@@ -268,7 +275,7 @@ public class SolutionIT {
     public void loggedIn_addNewWhipbirdThenDeleteIt() {
         // TODO
         logIn(true);
-        deleteFirstWhipBird();
+
 
     }
 }
