@@ -12,6 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.function.Function;
 import java.util.UUID;
+import java.util.List;
 
 public class SolutionIT {
     private static WebDriver driver;
@@ -134,11 +135,6 @@ public class SolutionIT {
         driver.findElement(By.tagName("form")).submit();
     }
 
-    private static void deleteWhipBird(WebElement deleteButton) {
-        wait.until(presenceOfElementLocated(By.id(deleteButton.getAttribute("id"))));
-        deleteButton.click();
-    }
-
     // ========= SCAFFOLDING =========
 
     @BeforeClass
@@ -256,7 +252,6 @@ public class SolutionIT {
     @Test
     public void loggedIn_addNewWhipbird() {
         logIn(true);
-
         createNewUniqueWhipBird();
         assertElementTextEquals(By.id(popupMessageId),"Whipbird added: "+ whipBirdName);
         String whipBirdsDiv = driver.findElement(By.id("whipbirds-list")).getText();
@@ -267,5 +262,6 @@ public class SolutionIT {
     @Test
     public void loggedIn_addNewWhipbirdThenDeleteIt() {
         // TODO
+       
     }
 }
