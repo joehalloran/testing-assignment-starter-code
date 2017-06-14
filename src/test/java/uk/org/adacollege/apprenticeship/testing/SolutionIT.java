@@ -135,6 +135,11 @@ public class SolutionIT {
         driver.findElement(By.tagName("form")).submit();
     }
 
+    private static void deleteFirstWhipBird() {
+        wait.until(presenceOfElementLocated(By.id("delete-whipbird-button-0")));
+        driver.findElement(By.id("delete-whipbird-button-0")).click();
+    }
+
     // ========= SCAFFOLDING =========
 
     @BeforeClass
@@ -262,6 +267,8 @@ public class SolutionIT {
     @Test
     public void loggedIn_addNewWhipbirdThenDeleteIt() {
         // TODO
-       
+        logIn(true);
+        deleteFirstWhipBird();
+
     }
 }
