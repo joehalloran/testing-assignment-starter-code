@@ -30,7 +30,7 @@ public class SolutionIT {
     private static String logInButtonId = "login-button";
     private static String logOutButtonId = "log-out-button";
     private static String popupMessageId = "popup-message";
-    private static String whipBirdName = "Barnaby Beanland" + UUID.randomUUID().toString();
+    private static String whipBirdName = "Barnaby Beanland";
     private static String whipBirdAge = "6";
 
     // ========= UTILITY METHODS =========
@@ -121,9 +121,22 @@ public class SolutionIT {
     }
 
     private static void createNewUniqueWhipBird() {
-        driver.findElement(By.name("name")).newWhipBirdName.sendKeys(whipBirdName);
-        driver.findElement(By.name("age")).newWhipBirdAge.sendKeys(whipBirdAge);
-        driver.findElement(By.tagName("form")).newWhipForm.submit();
+        // Make name truely unique
+        whipBirdName = whipBirdName + UUID.randomUUID().toString();
+
+        wait.until(presenceOfElementLocated(By.name("name")));
+        driver.findElement(By.name("name")).sendKeys(whipBirdName);
+
+        wait.until(presenceOfElementLocated(By.name("age")));
+        driver.findElement(By.name("age")).sendKeys(whipBirdAge);
+
+        wait.until(presenceOfElementLocated(By.tagName("form")));
+        driver.findElement(By.tagName("form")).submit();
+    }
+
+    private static void deleteWhipBird(WebElement deleteButton) {
+        wait.until(presenceOfElementLocated(By.id(deleteButton.getAttribute("id"))));
+        deleteButton.click();
     }
 
     // ========= SCAFFOLDING =========
@@ -178,6 +191,7 @@ public class SolutionIT {
     // Step 3
     @Test
     public void notLoggedIn_clickAboutMenu() {
+        wait.until(presenceOfElementLocated(By.id(aboutMenuId)));
         WebElement aboutMenuItem = driver.findElement(By.id(aboutMenuId));
         aboutMenuItem.click();
         assertUrlEquals("http://whipbird.mattcalthrop.com/#!/about");
@@ -231,6 +245,7 @@ public class SolutionIT {
     public void loggedIn_clickLogOutMenu() {
         logIn(true);
         WebElement logOutMenuItem = driver.findElement(By.id(logOutMenuId));
+        wait.until(presenceOfElementLocated(By.id(logOutMenuId)));
         logOutMenuItem.click();
         assertUrlEquals("http://whipbird.mattcalthrop.com/#!/logout");
         assertTitleEquals("whipbird: log out");
@@ -241,6 +256,7 @@ public class SolutionIT {
     @Test
     public void loggedIn_addNewWhipbird() {
         logIn(true);
+
         createNewUniqueWhipBird();
         assertElementTextEquals(By.id(popupMessageId),"Whipbird added: "+ whipBirdName);
         String whipBirdsDiv = driver.findElement(By.id("whipbirds-list")).getText();
