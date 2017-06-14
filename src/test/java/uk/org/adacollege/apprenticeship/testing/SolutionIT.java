@@ -121,12 +121,9 @@ public class SolutionIT {
     }
 
     private static void createNewUniqueWhipBird() {
-        WebElement newWhipForm = driver.findElement(By.tagName("form"));
-        WebElement newWhipBirdName = driver.findElement(By.name("name"));
-        WebElement newWhipBirdAge = driver.findElement(By.name("age"));
-        newWhipBirdName.sendKeys(whipBirdName);
-        newWhipBirdAge.sendKeys(whipBirdAge);
-        newWhipForm.submit();
+        driver.findElement(By.name("name")).newWhipBirdName.sendKeys(whipBirdName);
+        driver.findElement(By.name("age")).newWhipBirdAge.sendKeys(whipBirdAge);
+        driver.findElement(By.tagName("form")).newWhipForm.submit();
     }
 
     // ========= SCAFFOLDING =========
