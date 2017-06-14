@@ -1,6 +1,7 @@
 package uk.org.adacollege.apprenticeship.testing;
 
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertFalse;
 
 import org.junit.*;
 import org.openqa.selenium.By;
@@ -140,8 +141,8 @@ public class SolutionIT {
         driver.findElement(By.id("delete-whipbird-button-0")).click();
     }
 
-    private static void deleteAllWhipBird() {
-        while (driver.findElements(By.id("no-whipbirds-saved")).size() < 1) {
+    private static void deleteAllWhipBirds() {
+        while (driver.findElements(By.id("no-whipbirds-saved")).size() != 1) {
             deleteFirstWhipBird();
         }
     }
@@ -263,7 +264,7 @@ public class SolutionIT {
     @Test
     public void loggedIn_addNewWhipbird() {
         logIn(true);
-        deleteAllWhipBird();
+        deleteAllWhipBirds();
         createNewUniqueWhipBird();
         assertElementTextEquals(By.id(popupMessageId),"Whipbird added: "+ whipBirdName);
         String whipBirdsDiv = driver.findElement(By.id("whipbirds-list")).getText();
@@ -273,9 +274,13 @@ public class SolutionIT {
     // Step 9
     @Test
     public void loggedIn_addNewWhipbirdThenDeleteIt() {
-        // TODO
         logIn(true);
-
-
+        deleteAllWhipBirds();
+        createNewUniqueWhipBird();
+        deleteFirstWhipBird();
+        assertElementTextEquals(By.id(popupMessageId),"Whipbird deleted: "+ whipBirdName);
+        assertElementPresent("no-whipbirds-saved");
+        String pageText = driver.findElement(By.className("page-content")).getText();
+        assertFalse(pageText.contains(whipBirdName));
     }
 }
