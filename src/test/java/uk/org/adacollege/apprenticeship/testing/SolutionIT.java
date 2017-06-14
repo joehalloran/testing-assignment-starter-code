@@ -11,6 +11,7 @@ import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
 import java.util.function.Function;
+import java.util.UUID;
 
 public class SolutionIT {
     private static WebDriver driver;
@@ -231,18 +232,22 @@ public class SolutionIT {
     // Step 8
     @Test
     public void loggedIn_addNewWhipbird() {
-        String whipBirdName = "Barnaby Beanland";
+        // Use randomUUID to generate unique / highly improbable name
+        String whipBirdName = "Barnaby Beanland" + UUID.randomUUID().toString();
         String whipBirdAge = "6";
         logIn(true);
+        // Fill in new whipbird form
         WebElement newWhipForm = driver.findElement(By.tagName("form"));
         WebElement newWhipBirdName = driver.findElement(By.name("name"));
         WebElement newWhipBirdAge = driver.findElement(By.name("age"));
         newWhipBirdName.sendKeys(whipBirdName);
         newWhipBirdAge.sendKeys(whipBirdAge);
         newWhipForm.submit();
+        // Check pop up
         assertElementTextEquals(By.id("popup-message"),"Whipbird added: "+ whipBirdName);
-        // TODO
-        assertElementTextEquals(By.className("whipbird"), whipBirdName + ", " + whipBirdAge + " years old");
+        // Check new whipbird in whipbirds list
+        String whipBirdsDiv = driver.findElement(By.id("whipbirds-list")).getText();
+        assertTrue(whipBirdsDiv.contains(whipBirdName + ", " + whipBirdAge + " years old"));
     }
 
     // Step 9
