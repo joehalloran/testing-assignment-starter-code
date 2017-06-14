@@ -8,3 +8,5 @@
     
 - Refactored test 8 to make createNewUniqueWhipBird
     * Should this include or exclude logIn() method?
+    
+- weird inconsistencies with success failures
