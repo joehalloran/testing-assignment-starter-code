@@ -153,7 +153,7 @@ public class SolutionIT {
     public static void beforeAll() {
         startUrl = "http://whipbird.mattcalthrop.com/";
         driver = new ChromeDriver();
-        wait = new WebDriverWait(driver, 5);
+        wait = new WebDriverWait(driver, 10);
     }
 
     @AfterClass
