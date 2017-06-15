@@ -26,6 +26,3 @@
 
 
 - Commit messages should be more descriptive
-
-// TODO
-- Commit messages should be more descriptive
