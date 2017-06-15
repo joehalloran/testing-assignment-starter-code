@@ -199,8 +199,8 @@ public class SolutionIT {
     // Step 3
     @Test
     public void notLoggedIn_clickAboutMenu() {
-        wait.until(presenceOfElementLocated(By.id(aboutMenuId)));
         WebElement aboutMenuItem = driver.findElement(By.id(aboutMenuId));
+        wait.until(presenceOfElementLocated(By.id(aboutMenuId)));
         aboutMenuItem.click();
         assertUrlEquals("http://whipbird.mattcalthrop.com/#!/about");
         assertTitleEquals("whipbird: about");
